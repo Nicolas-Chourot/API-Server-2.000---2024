@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .ellipsis {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .post {
+            margin: auto;
+            width: 100%;
+            border: 1px solid lightgray;
+            margin-bottom: 20px;
+        }
+
+        .posts {
+            margin: auto;
+            max-width: 700px;
+        }
+
+        .postHeader {
+            color: blue;
+            display: grid;
+            grid-template-columns: auto 30px 30px;
+            align-items: center;
+        }
+
+        .postTitle {
+            font-size: 30px;
+            font-weight: bold;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        .postImage {
+            width: 100%;
+            height: 506px;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        .postDate {
+            font-size: 12px;
+            margin-bottom: 20px;
+            color: gray;
+        }
+
+        px,
+        divx {
+            border: 1px solid red;
+        }
+
+        .postText {
+            text-align: justify;
+            overflow-y: hidden;
+            font-size: 17px;
+            font-family: 'Times New Roman', Times, serif;
+            line-height: 21px;
+        }
+
+        .postTextContainer {
+            height: 120px;
+        }
+
+        .postfooter {
+            text-align: center;
+            font-size: 12px;
+            color: blue
+        }
+
+        .hideExtra {
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .showExtra {
+            height: auto;
+        }
+
+        .cmdIcon {
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="posts">
+        <div class="post">
+            <div class="postHeader">
+                CATEGORIE
+                <span class="editCmd cmdIcon fa fa-pencil" editContactId="0" title="Modifier nouvelle"></span>
+                <span class="deleteCmd cmdIcon fa fa-trash" deleteContactId="0" title="Effacer nouvelle"></span>
+            </div>
+            <div class="postTitle ellipsis">
+                Titre de la nouvelle : Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quisquam in sequi
+                tempora labore facilis impedit ad praesentium ipsum, nemo rem a cupiditate maiores autem corporis
+                sit
+                assumenda, voluptatibus eligendi voluptas.
+            </div>
+            <div class="postImage" style="background-image: url(https://picsum.photos/id/652/600/400);"> </div>
+            <div class="postDate">
+                Jeudi 7 novembre 2024 - 11:28:15
+            </div>
+            <div class="postTextContainer hideExtra">
+                <div class="postText">Donald Trump a promis de démanteler le Inflation Reduction Act (IRA), qu’il a qualifié de nouvelle arnaque verte . Cette loi, que Joe Biden a réussi à faire adopter à bout de bras, est devenue le plus important programme climatique de l’histoire des États-Unis.
+
+                    Malgré ses défauts, cette politique d’investissement dans les infrastructures énergétiques est un immense succès. L’IRA a entraîné plus de 370 milliards de dollars en investissements privés et a créé plus de 300000 emplois en deux ans seulement dans les secteurs des énergies renouvelables et dans la filière batterie pour les véhicules.
+                    
+                    Même si Donald Trump promet de ramener les États-Unis à l’heure des énergies fossiles, il pourrait trouver difficile de stopper le mouvement de la transition énergétique en cours dans son pays. Le boom des énergies renouvelables est une vague de fond aux États-Unis, qui répond à des impératifs économiques : elles coûtent beaucoup moins cher. Elles comptaient pour 23 % de la production d’électricité en 2023, contre 13 % il y a dix ans. Parmi les plus grands bénéficiaires de ces politiques, la Georgie, la Caroline du Sud et la Caroline du Nord.
+                    
+                    Le Texas, le symbole même de l’État pétrolier, a dépassé la Californie pour ce qui est de la production d’énergie solaire.
+                    
+                    Par ailleurs, près de 80 % des nouveaux investissements ont jusqu'à présent bénéficié aux circonscriptions républicaines, et plus des deux tiers des emplois nés de l’IRA (68 %) ont été créés dans ces États. Une réalité que les élus républicains se gardent bien de crier sur tous les toits.</div>
+            </div>
+            <div class="postfooter">
+                <span class="moreText cmdIcon fa fa-angle-double-down" title="Afficher la suite"></span>
+                <span class="lessText cmdIcon fa fa-angle-double-up" title="Réduire..."></span>
+            </div>
+        </div>
+
+        <div class="post">
+            <div class="postHeader">
+                CATEGORIE
+                <span class="editCmd cmdIcon fa fa-pencil" editContactId="0" title="Modifier nouvelle"></span>
+                <span class="deleteCmd cmdIcon fa fa-trash" deleteContactId="0" title="Effacer nouvelle"></span>
+            </div>
+            <div class="postTitle ellipsis">
+                Titre de la nouvelle : Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quisquam in sequi
+                tempora labore facilis impedit ad praesentium ipsum, nemo rem a cupiditate maiores autem corporis
+                sit
+                assumenda, voluptatibus eligendi voluptas.
+            </div>
+            <div class="postImage" style="background-image: url(https://picsum.photos/id/645/600/400);"> </div>
+            <div class="postDate">
+                Jeudi 7 novembre 2024 - 11:28:15
+            </div>
+            <div class="postTextContainer hideExtra">
+                <div class="postText">Ainsi, les élus républicains (qui contrôlent maintenant le Sénat), tout comme les représentants du secteur privé, pourraient demander au nouveau président désigné de ne toucher à rien. En plus de créer des emplois, cette éclosion des énergies renouvelables dans certains États renforce en effet la fiabilité des réseaux électriques.
+
+                    Ajoutons qu’aux États-Unis, les États, les comtés et les villes peuvent agir sur leurs propres politiques de transition énergétique et de lutte contre les changements climatiques. Les pouvoirs de Washington sur la question ne sont pas sans limites.
+                    
+                    L’action climatique américaine ne s’arrêtera pas le jour où Donald Trump prendra les clés de la Maison-Blanche. Mais elle pourrait ralentir si le président désigné décide malgré tout de retenir les budgets qui n’ont pas encore été dépensés, de ne pas mettre de nouvel argent dans la cagnotte et d’imposer des mesures administratives qui compliquent les choses pour le secteur privé.
+                    </div>
+            </div>
+            <div class="postfooter">
+                <span class="moreText cmdIcon fa fa-angle-double-down" title="Afficher la suite"></span>
+                <span class="lessText cmdIcon fa fa-angle-double-up" title="Réduire..."></span>
+            </div>
+
+        </div>
+        <div class="post">
+            <div class="postHeader">
+                CATEGORIE
+                <span class="editCmd cmdIcon fa fa-pencil" editContactId="0" title="Modifier nouvelle"></span>
+                <span class="deleteCmd cmdIcon fa fa-trash" deleteContactId="0" title="Effacer nouvelle"></span>
+            </div>
+            <div class="postTitle ellipsis">
+                Titre de la nouvelle : Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quisquam in sequi
+                tempora labore facilis impedit ad praesentium ipsum, nemo rem a cupiditate maiores autem corporis
+                sit
+                assumenda, voluptatibus eligendi voluptas.
+            </div>
+            <div class="postImage" style="background-image: url(https://picsum.photos/id/652/600/400);"> </div>
+            <div class="postDate">
+                Jeudi 7 novembre 2024 - 11:28:15
+            </div>
+            <div class="postTextContainer hideExtra">
+                <div class="postText">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Maxime beatae vitae
+                    ea nobis corrupti temporibus omnis eum. Nemo impedit molestias laborum eligendi, quidem
+                    asperiores quam pariatur minus totam! Omnis, eligendi? Lorem ipsum dolor sit, amet consectetur
+                    adipisicing elit.
+
+                    Ea placeat incidunt impedit libero, quis sint nobis, animi id laudantium in doloremque pariatur
+                    magni nulla reiciendis itaque culpa, ipsam sequi fugit? Lorem ipsum dolor sit amet, consectetur
+                    adipisicing elit. Earum perspiciatis illo vero ducimus, repudiandae rem reprehenderit reiciendis
+                    quos minima corporis non laboriosam quia, minus cumque modi quaerat fuga iusto? Commodi?
+
+                </div>
+            </div>
+            <div class="postfooter">
+                <span class="moreText cmdIcon fa fa-angle-double-down" title="Afficher la suite"></span>
+                <span class="lessText cmdIcon fa fa-angle-double-up" title="Réduire..."></span>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.4.1/jquery.maskedinput.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script>
+        $(() => {
+            $(".lessText").hide();
+            $(".postfooter").hide();
+            $.each($(".postText"), function () {
+                let postText = $(this);
+                var str = "<p>" + postText.html();
+                var regex = /[\n]/g;
+                postText.html(str.replace(regex, "</p><p>"));
+            })
+            $.each($(".postTextContainer"), function () {
+                let text = $(this).find(">:first-child");
+
+                if ($(this).innerHeight() < text.outerHeight()) {
+                    let postFooter = $(this).parent().find(">:last-child");
+                    postFooter.show();
+                    let lessText = postFooter.find(">:last-child");
+                    lessText.hide();
+                }
+            })
+
+            $(".moreText").click(function () {
+                let moreText = $(this);
+                let postTextContainer = $(this).parent().parent().find(">:nth-child(5)");
+                postTextContainer.addClass('showExtra');
+                postTextContainer.removeClass('hideExtra');
+                let lessText = moreText.parent().find(">:last-child");
+                moreText.hide();
+                lessText.show();
+            })
+
+            $(".lessText").click(function () {
+                let lessText = $(this);
+                let postTextContainer = lessText.parent().parent().find(">:nth-child(5)");
+                postTextContainer.addClass('hideExtra');
+                postTextContainer.removeClass('showExtra');
+                let moreText = $(this).parent().find(">:first-child");
+                moreText.show();
+                lessText.hide();
+            })
+        })
+    </script>
+</body>
+
+</html>

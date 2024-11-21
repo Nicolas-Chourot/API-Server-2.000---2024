@@ -1,0 +1,29 @@
+[
+    {
+        "Id": "14cc9390-9057-11ee-9387-59e9bc2909e7",
+        "Email": "Nicolas.Chourot@clg.qc.ca",
+        "Password": "password",
+        "Name": "Nicolas Chourot",
+        "Avatar": "f5795080-4468-11ee-8281-2f600646bb7f.jpeg",
+        "Created": 1702469431,
+        "Authorizations": {
+            "readAccess": 2,
+            "writeAccess": 2
+        },
+        "VerifyCode": "verified"
+    },
+    {
+        "Email": "nicolaschourot@videotron.ca",
+        "Password": "password",
+        "Name": "Nicolas",
+        "Avatar": "04e2be90-a45c-11ef-9487-5be10abe1de4.jpeg",
+        "Created": 1731790056,
+        "VerifyCode": "verified",
+        "Authorizations": {
+            "readAccess": 1,
+            "writeAccess": 1
+        },
+        "Verifycode": 516540,
+        "Id": "02a2b9a0-a45c-11ef-9487-5be10abe1de4"
+    }
+]

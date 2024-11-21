@@ -1,0 +1,668 @@
+[
+    {
+        "Year": 1950,
+        "Storm": 10,
+        "Cat1": 2,
+        "Cat2": 8,
+        "Cat3": 6,
+        "Cat4": 6,
+        "Cat5": 0
+    },
+    {
+        "Year": 1951,
+        "Storm": 8,
+        "Cat1": 8,
+        "Cat2": 2,
+        "Cat3": 2,
+        "Cat4": 4,
+        "Cat5": 0
+    },
+    {
+        "Year": 1952,
+        "Storm": 12,
+        "Cat1": 0,
+        "Cat2": 6,
+        "Cat3": 2,
+        "Cat4": 2,
+        "Cat5": 0
+    },
+    {
+        "Year": 1953,
+        "Storm": 14,
+        "Cat1": 8,
+        "Cat2": 0,
+        "Cat3": 4,
+        "Cat4": 0,
+        "Cat5": 2
+    },
+    {
+        "Year": 1954,
+        "Storm": 18,
+        "Cat1": 4,
+        "Cat2": 4,
+        "Cat3": 4,
+        "Cat4": 2,
+        "Cat5": 0
+    },
+    {
+        "Year": 1955,
+        "Storm": 8,
+        "Cat1": 2,
+        "Cat2": 8,
+        "Cat3": 2,
+        "Cat4": 4,
+        "Cat5": 2
+    },
+    {
+        "Year": 1956,
+        "Storm": 16,
+        "Cat1": 4,
+        "Cat2": 2,
+        "Cat3": 2,
+        "Cat4": 0,
+        "Cat5": 0
+    },
+    {
+        "Year": 1957,
+        "Storm": 10,
+        "Cat1": 2,
+        "Cat2": 0,
+        "Cat3": 2,
+        "Cat4": 2,
+        "Cat5": 0
+    },
+    {
+        "Year": 1958,
+        "Storm": 10,
+        "Cat1": 2,
+        "Cat2": 6,
+        "Cat3": 0,
+        "Cat4": 6,
+        "Cat5": 0
+    },
+    {
+        "Year": 1959,
+        "Storm": 14,
+        "Cat1": 10,
+        "Cat2": 0,
+        "Cat3": 2,
+        "Cat4": 2,
+        "Cat5": 0
+    },
+    {
+        "Year": 1960,
+        "Storm": 8,
+        "Cat1": 4,
+        "Cat2": 0,
+        "Cat3": 2,
+        "Cat4": 2,
+        "Cat5": 0
+    },
+    {
+        "Year": 1961,
+        "Storm": 8,
+        "Cat1": 4,
+        "Cat2": 2,
+        "Cat3": 0,
+        "Cat4": 6,
+        "Cat5": 4
+    },
+    {
+        "Year": 1962,
+        "Storm": 6,
+        "Cat1": 4,
+        "Cat2": 4,
+        "Cat3": 0,
+        "Cat4": 0,
+        "Cat5": 0
+    },
+    {
+        "Year": 1963,
+        "Storm": 6,
+        "Cat1": 4,
+        "Cat2": 4,
+        "Cat3": 4,
+        "Cat4": 2,
+        "Cat5": 0
+    },
+    {
+        "Year": 1964,
+        "Storm": 12,
+        "Cat1": 2,
+        "Cat2": 2,
+        "Cat3": 2,
+        "Cat4": 8,
+        "Cat5": 0
+    },
+    {
+        "Year": 1965,
+        "Storm": 12,
+        "Cat1": 2,
+        "Cat2": 4,
+        "Cat3": 0,
+        "Cat4": 2,
+        "Cat5": 0
+    },
+    {
+        "Year": 1966,
+        "Storm": 16,
+        "Cat1": 8,
+        "Cat2": 0,
+        "Cat3": 4,
+        "Cat4": 0,
+        "Cat5": 2
+    },
+    {
+        "Year": 1967,
+        "Storm": 14,
+        "Cat1": 6,
+        "Cat2": 4,
+        "Cat3": 0,
+        "Cat4": 0,
+        "Cat5": 2
+    },
+    {
+        "Year": 1968,
+        "Storm": 11,
+        "Cat1": 6,
+        "Cat2": 1,
+        "Cat3": 0,
+        "Cat4": 0,
+        "Cat5": 0
+    },
+    {
+        "Year": 1969,
+        "Storm": 7,
+        "Cat1": 6,
+        "Cat2": 2,
+        "Cat3": 2,
+        "Cat4": 0,
+        "Cat5": 1
+    },
+    {
+        "Year": 1970,
+        "Storm": 7,
+        "Cat1": 3,
+        "Cat2": 2,
+        "Cat3": 1,
+        "Cat4": 1,
+        "Cat5": 0
+    },
+    {
+        "Year": 1971,
+        "Storm": 7,
+        "Cat1": 4,
+        "Cat2": 1,
+        "Cat3": 0,
+        "Cat4": 0,
+        "Cat5": 1
+    },
+    {
+        "Year": 1972,
+        "Storm": 4,
+        "Cat1": 2,
+        "Cat2": 1,
+        "Cat3": 0,
+        "Cat4": 0,
+        "Cat5": 0
+    },
+    {
+        "Year": 1973,
+        "Storm": 4,
+        "Cat1": 3,
+        "Cat2": 0,
+        "Cat3": 1,
+        "Cat4": 0,
+        "Cat5": 0
+    },
+    {
+        "Year": 1974,
+        "Storm": 7,
+        "Cat1": 1,
+        "Cat2": 1,
+        "Cat3": 1,
+        "Cat4": 1,
+        "Cat5": 0
+    },
+    {
+        "Year": 1975,
+        "Storm": 3,
+        "Cat1": 1,
+        "Cat2": 2,
+        "Cat3": 2,
+        "Cat4": 1,
+        "Cat5": 0
+    },
+    {
+        "Year": 1976,
+        "Storm": 4,
+        "Cat1": 2,
+        "Cat2": 2,
+        "Cat3": 2,
+        "Cat4": 0,
+        "Cat5": 0
+    },
+    {
+        "Year": 1977,
+        "Storm": 1,
+        "Cat1": 4,
+        "Cat2": 0,
+        "Cat3": 0,
+        "Cat4": 0,
+        "Cat5": 1
+    },
+    {
+        "Year": 1978,
+        "Storm": 7,
+        "Cat1": 2,
+        "Cat2": 1,
+        "Cat3": 0,
+        "Cat4": 2,
+        "Cat5": 0
+    },
+    {
+        "Year": 1979,
+        "Storm": 4,
+        "Cat1": 2,
+        "Cat2": 1,
+        "Cat3": 0,
+        "Cat4": 1,
+        "Cat5": 1
+    },
+    {
+        "Year": 1980,
+        "Storm": 2,
+        "Cat1": 4,
+        "Cat2": 3,
+        "Cat3": 1,
+        "Cat4": 0,
+        "Cat5": 1
+    },
+    {
+        "Year": 1981,
+        "Storm": 5,
+        "Cat1": 3,
+        "Cat2": 1,
+        "Cat3": 2,
+        "Cat4": 1,
+        "Cat5": 0
+    },
+    {
+        "Year": 1982,
+        "Storm": 4,
+        "Cat1": 1,
+        "Cat2": 0,
+        "Cat3": 0,
+        "Cat4": 1,
+        "Cat5": 0
+    },
+    {
+        "Year": 1983,
+        "Storm": 1,
+        "Cat1": 2,
+        "Cat2": 0,
+        "Cat3": 1,
+        "Cat4": 0,
+        "Cat5": 0
+    },
+    {
+        "Year": 1984,
+        "Storm": 8,
+        "Cat1": 3,
+        "Cat2": 1,
+        "Cat3": 0,
+        "Cat4": 1,
+        "Cat5": 0
+    },
+    {
+        "Year": 1985,
+        "Storm": 4,
+        "Cat1": 4,
+        "Cat2": 0,
+        "Cat3": 2,
+        "Cat4": 1,
+        "Cat5": 0
+    },
+    {
+        "Year": 1986,
+        "Storm": 2,
+        "Cat1": 3,
+        "Cat2": 1,
+        "Cat3": 0,
+        "Cat4": 0,
+        "Cat5": 0
+    },
+    {
+        "Year": 1987,
+        "Storm": 4,
+        "Cat1": 2,
+        "Cat2": 0,
+        "Cat3": 1,
+        "Cat4": 0,
+        "Cat5": 0
+    },
+    {
+        "Year": 1988,
+        "Storm": 7,
+        "Cat1": 2,
+        "Cat2": 0,
+        "Cat3": 0,
+        "Cat4": 2,
+        "Cat5": 1
+    },
+    {
+        "Year": 1989,
+        "Storm": 4,
+        "Cat1": 3,
+        "Cat2": 2,
+        "Cat3": 0,
+        "Cat4": 1,
+        "Cat5": 1
+    },
+    {
+        "Year": 1990,
+        "Storm": 6,
+        "Cat1": 5,
+        "Cat2": 2,
+        "Cat3": 1,
+        "Cat4": 0,
+        "Cat5": 0
+    },
+    {
+        "Year": 1991,
+        "Storm": 4,
+        "Cat1": 1,
+        "Cat2": 1,
+        "Cat3": 1,
+        "Cat4": 1,
+        "Cat5": 0
+    },
+    {
+        "Year": 1992,
+        "Storm": 3,
+        "Cat1": 1,
+        "Cat2": 2,
+        "Cat3": 0,
+        "Cat4": 0,
+        "Cat5": 1
+    },
+    {
+        "Year": 1993,
+        "Storm": 6,
+        "Cat1": 1,
+        "Cat2": 1,
+        "Cat3": 1,
+        "Cat4": 0,
+        "Cat5": 0
+    },
+    {
+        "Year": 1994,
+        "Storm": 4,
+        "Cat1": 2,
+        "Cat2": 1,
+        "Cat3": 0,
+        "Cat4": 0,
+        "Cat5": 0
+    },
+    {
+        "Year": 1995,
+        "Storm": 8,
+        "Cat1": 3,
+        "Cat2": 3,
+        "Cat3": 2,
+        "Cat4": 3,
+        "Cat5": 0
+    },
+    {
+        "Year": 1996,
+        "Storm": 4,
+        "Cat1": 3,
+        "Cat2": 0,
+        "Cat3": 4,
+        "Cat4": 2,
+        "Cat5": 0
+    },
+    {
+        "Year": 1997,
+        "Storm": 5,
+        "Cat1": 2,
+        "Cat2": 0,
+        "Cat3": 1,
+        "Cat4": 0,
+        "Cat5": 0
+    },
+    {
+        "Year": 1998,
+        "Storm": 4,
+        "Cat1": 3,
+        "Cat2": 4,
+        "Cat3": 1,
+        "Cat4": 1,
+        "Cat5": 1
+    },
+    {
+        "Year": 1999,
+        "Storm": 4,
+        "Cat1": 0,
+        "Cat2": 3,
+        "Cat3": 0,
+        "Cat4": 5,
+        "Cat5": 0
+    },
+    {
+        "Year": 2000,
+        "Storm": 7,
+        "Cat1": 4,
+        "Cat2": 1,
+        "Cat3": 1,
+        "Cat4": 2,
+        "Cat5": 0
+    },
+    {
+        "Year": 2001,
+        "Storm": 6,
+        "Cat1": 4,
+        "Cat2": 1,
+        "Cat3": 2,
+        "Cat4": 2,
+        "Cat5": 0
+    },
+    {
+        "Year": 2002,
+        "Storm": 8,
+        "Cat1": 1,
+        "Cat2": 1,
+        "Cat3": 1,
+        "Cat4": 1,
+        "Cat5": 0
+    },
+    {
+        "Year": 2003,
+        "Storm": 9,
+        "Cat1": 3,
+        "Cat2": 1,
+        "Cat3": 1,
+        "Cat4": 1,
+        "Cat5": 1
+    },
+    {
+        "Year": 2004,
+        "Storm": 6,
+        "Cat1": 2,
+        "Cat2": 1,
+        "Cat3": 2,
+        "Cat4": 3,
+        "Cat5": 1
+    },
+    {
+        "Year": 2005,
+        "Storm": 14,
+        "Cat1": 7,
+        "Cat2": 1,
+        "Cat3": 2,
+        "Cat4": 1,
+        "Cat5": 4
+    },
+    {
+        "Year": 2006,
+        "Storm": 5,
+        "Cat1": 3,
+        "Cat2": 0,
+        "Cat3": 2,
+        "Cat4": 0,
+        "Cat5": 0
+    },
+    {
+        "Year": 2007,
+        "Storm": 11,
+        "Cat1": 3,
+        "Cat2": 0,
+        "Cat3": 0,
+        "Cat4": 0,
+        "Cat5": 2
+    },
+    {
+        "Year": 2008,
+        "Storm": 8,
+        "Cat1": 2,
+        "Cat2": 1,
+        "Cat3": 1,
+        "Cat4": 4,
+        "Cat5": 0
+    },
+    {
+        "Year": 2009,
+        "Storm": 11,
+        "Cat1": 0,
+        "Cat2": 2,
+        "Cat3": 2,
+        "Cat4": 2,
+        "Cat5": 0
+    },
+    {
+        "Year": 2010,
+        "Storm": 14,
+        "Cat1": 6,
+        "Cat2": 8,
+        "Cat3": 2,
+        "Cat4": 8,
+        "Cat5": 0
+    },
+    {
+        "Year": 2011,
+        "Storm": 24,
+        "Cat1": 6,
+        "Cat2": 0,
+        "Cat3": 4,
+        "Cat4": 4,
+        "Cat5": 0
+    },
+    {
+        "Year": 2012,
+        "Storm": 18,
+        "Cat1": 10,
+        "Cat2": 6,
+        "Cat3": 4,
+        "Cat4": 0,
+        "Cat5": 0
+    },
+    {
+        "Year": 2013,
+        "Storm": 24,
+        "Cat1": 4,
+        "Cat2": 0,
+        "Cat3": 0,
+        "Cat4": 0,
+        "Cat5": 0
+    },
+    {
+        "Year": 2014,
+        "Storm": 4,
+        "Cat1": 6,
+        "Cat2": 2,
+        "Cat3": 2,
+        "Cat4": 2,
+        "Cat5": 0
+    },
+    {
+        "Year": 2015,
+        "Storm": 14,
+        "Cat1": 4,
+        "Cat2": 0,
+        "Cat3": 2,
+        "Cat4": 2,
+        "Cat5": 0
+    },
+    {
+        "Year": 2016,
+        "Storm": 16,
+        "Cat1": 6,
+        "Cat2": 0,
+        "Cat3": 4,
+        "Cat4": 2,
+        "Cat5": 2
+    },
+    {
+        "Year": 2017,
+        "Storm": 14,
+        "Cat1": 4,
+        "Cat2": 4,
+        "Cat3": 4,
+        "Cat4": 4,
+        "Cat5": 4
+    },
+    {
+        "Year": 2018,
+        "Storm": 14,
+        "Cat1": 6,
+        "Cat2": 6,
+        "Cat3": 0,
+        "Cat4": 2,
+        "Cat5": 2
+    },
+    {
+        "Year": 2019,
+        "Storm": 22,
+        "Cat1": 4,
+        "Cat2": 2,
+        "Cat3": 2,
+        "Cat4": 0,
+        "Cat5": 4
+    },
+    {
+        "Year": 2020,
+        "Storm": 32,
+        "Cat1": 10,
+        "Cat2": 4,
+        "Cat3": 4,
+        "Cat4": 10,
+        "Cat5": 0
+    },
+    {
+        "Year": 2021,
+        "Storm": 26,
+        "Cat1": 6,
+        "Cat2": 0,
+        "Cat3": 4,
+        "Cat4": 4,
+        "Cat5": 0
+    },
+    {
+        "Year": 2022,
+        "Storm": 10,
+        "Cat1": 10,
+        "Cat2": 2,
+        "Cat3": 2,
+        "Cat4": 2,
+        "Cat5": 2
+    },
+    {
+        "Year": 2023,
+        "Storm": 13,
+        "Cat1": 1,
+        "Cat2": 2,
+        "Cat3": 2,
+        "Cat4": 2,
+        "Cat5": 1
+    }
+]
