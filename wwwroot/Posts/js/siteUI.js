@@ -36,32 +36,6 @@ async function Init_UI() {
 }
 
 /////////////////////////// Search keywords UI //////////////////////////////////////////////////////////
-function showSearch() {
-    $("#hiddenIcon").hide();
-    $("#showSearch").show();
-    if (showKeywords) {
-        $("#keywordsContainer").show();
-    }
-    else
-        $("#keywordsContainer").hide();
-}
-function hideSearch() {
-    $("#hiddenIcon").show();
-    $("#showSearch").hide();
-    $("#keywordsContainer").hide();
-}
-function toogleShowKeywords() {
-    showKeywords = !showKeywords;
-    if (showKeywords) {
-        $("#keywordsContainer").show();
-        $("#searchKeys").focus();
-    }
-    else {
-        $("#keywordsContainer").hide();
-        showPosts();
-    }
-}
-
 function installKeywordsOnkeyupEvent() {
     $("#searchKeys").on('keyup', function () {
         clearTimeout(keywordsOnchangeTimger);
@@ -82,16 +56,25 @@ function cleanSearchKeywords() {
 }
 /////////////////////////// Views management ////////////////////////////////////////////////////////////
 async function showPosts() {
+    $('#confirmPanel').hide();
     $("#actionTitle").text("Fil de nouvelles");
-    await postsPanel.show();
     cleanSearchKeywords();
     showSearch();
     $('#abort').hide();
     $('#form').hide();
     $('#aboutContainer').hide();
     $("#createPost").show();
-    $('#confirmPanel').hide();
     periodic_Refresh_paused = false;
+    await postsPanel.show();
+}
+function showSearch() {
+    $("#hiddenIcon").hide();
+    $("#showSearch").show();
+    if (showKeywords) {
+        $("#keywordsContainer").show();
+    }
+    else
+        $("#keywordsContainer").hide();
 }
 function hidePosts() {
     postsPanel.hide();
@@ -99,6 +82,22 @@ function hidePosts() {
     $("#createPost").hide();
     $("#abort").show();
     periodic_Refresh_paused = true;
+}
+function hideSearch() {
+    $("#hiddenIcon").show();
+    $("#showSearch").hide();
+    $("#keywordsContainer").hide();
+}
+function toogleShowKeywords() {
+    showKeywords = !showKeywords;
+    if (showKeywords) {
+        $("#keywordsContainer").show();
+        $("#searchKeys").focus();
+    }
+    else {
+        $("#keywordsContainer").hide();
+        showPosts();
+    }
 }
 function renderAbout() {
     hidePosts();
