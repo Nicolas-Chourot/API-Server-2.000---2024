@@ -5,7 +5,7 @@ import AccessControl from '../accessControl.js';
 
 export default class BookmarksController extends Controller {
     constructor(HttpContext) {
-        super(HttpContext, new Repository(new BookmarkModel()), AccessControl.user());
+        super(HttpContext, new Repository(new BookmarkModel()), AccessControl.anonymous());
     }
 
     /* Http GET action */

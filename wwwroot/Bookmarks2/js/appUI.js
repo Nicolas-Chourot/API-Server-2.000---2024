@@ -22,11 +22,8 @@ function removeWaitingGif() {
 Init_UI();
 
 async function Init_UI() {
-    itemLayout = {
-        width: $("#sample").outerWidth(),
-        height: $("#sample").outerHeight()
-    };
-    pageManager = new PageManager('scrollPanel', 'itemsPanel', itemLayout, renderBookmarks);
+    
+    pageManager = new PageManager('scrollPanel', 'itemsPanel', 'sample', renderBookmarks);
     compileCategories();
     $('#createBookmark').on("click", async function () {
         renderCreateBookmarkForm();
@@ -38,6 +35,7 @@ async function Init_UI() {
         renderAbout();
     });
     showBookmarks();
+    await pageManager.show();
     start_Periodic_Refresh();
 }
 function showBookmarks() {

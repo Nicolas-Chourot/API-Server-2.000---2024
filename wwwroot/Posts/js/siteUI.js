@@ -17,7 +17,6 @@ let waiting = null;
 let showKeywords = false;
 let keywordsOnchangeTimger = null;
 
-
 Init_UI();
 async function Init_UI() {
     postsPanel = new PageManager('postsScrollPanel', 'postsPanel', 'postSample', renderPosts);
