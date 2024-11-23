@@ -92,7 +92,7 @@ class PageManager {
         if (!this.hidden) this.restoreScrollPosition();
         let instance = this;
         this.scrollPanel.scroll(async function () {
-            if (!endOfData && (instance.scrollPanel.scrollTop() + instance.scrollPanel.outerHeight() >= instance.itemsPanel.outerHeight() - instance.itemLayout.height / 2)) {
+            if (!endOfData && (instance.scrollPanel.scrollTop() + instance.scrollPanel.outerHeight() >= instance.itemsPanel.outerHeight() - 10 /*instance.itemLayout.height / 2*/)) {
                 instance.scrollPanel.off();
                 await instance.update(true);
             }
