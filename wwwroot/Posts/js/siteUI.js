@@ -1,17 +1,22 @@
+////// Author: Nicolas Chourot
+////// 2024
+//////////////////////////////
+
 const periodicRefreshPeriod = 10;
+const waitingGifTrigger = 2000;
+const minKeywordLenth = 3;
+const keywordsOnchangeDelay = 500;
+
 let categories = [];
 let selectedCategory = "";
 let currentETag = "";
 let periodic_Refresh_paused = false;
 let postsPanel;
 let itemLayout;
-
 let waiting = null;
-let waitingGifTrigger = 2000;
 let showKeywords = false;
-let minKeywordLenth = 3;
 let keywordsOnchangeTimger = null;
-let keywordsOnchangeDelay = 500;
+
 
 Init_UI();
 async function Init_UI() {
@@ -20,10 +25,10 @@ async function Init_UI() {
         showCreatePostForm();
     });
     $('#abort').on("click", async function () {
-        showPosts()
+        showPosts();
     });
     $('#aboutCmd').on("click", function () {
-        renderAbout();
+        showAbout();
     });
     $("#showSearch").on('click', function () {
         toogleShowKeywords();
@@ -31,15 +36,19 @@ async function Init_UI() {
     });
 
     installKeywordsOnkeyupEvent();
-    showPosts();
+    intialView();
     start_Periodic_Refresh();
 }
 
 /////////////////////////// Search keywords UI //////////////////////////////////////////////////////////
+
 function installKeywordsOnkeyupEvent() {
     $("#searchKeys").on('keyup', function () {
         clearTimeout(keywordsOnchangeTimger);
-        keywordsOnchangeTimger = setTimeout(() => { showPosts(); }, keywordsOnchangeDelay);
+        keywordsOnchangeTimger = setTimeout(() => {
+            cleanSearchKeywords();
+            showPosts();
+        }, keywordsOnchangeDelay);
     });
     $("#searchKeys").on('search', function () {
         showPosts();
@@ -54,127 +63,116 @@ function cleanSearchKeywords() {
     });
     $("#searchKeys").val(cleanedKeywords.trim());
 }
-/////////////////////////// Views management ////////////////////////////////////////////////////////////
-async function showPosts() {
-    $('#confirmPanel').hide();
-    $("#actionTitle").text("Fil de nouvelles");
-    cleanSearchKeywords();
-    showSearch();
-    $('#abort').hide();
-    $('#form').hide();
-    $('#aboutContainer').hide();
-    $("#createPost").show();
-    periodic_Refresh_paused = false;
-    await postsPanel.show();
-}
-function showSearch() {
+function showSearchIcon() {
     $("#hiddenIcon").hide();
     $("#showSearch").show();
     if (showKeywords) {
-        $("#keywordsContainer").show();
+        $("#searchKeys").show();
     }
     else
-        $("#keywordsContainer").hide();
+        $("#searchKeys").hide();
 }
-function hidePosts() {
-    postsPanel.hide();
-    hideSearch();
-    $("#createPost").hide();
-    $("#abort").show();
-    periodic_Refresh_paused = true;
-}
-function hideSearch() {
+function hideSearchIcon() {
     $("#hiddenIcon").show();
     $("#showSearch").hide();
-    $("#keywordsContainer").hide();
+    $("#searchKeys").hide();
 }
 function toogleShowKeywords() {
     showKeywords = !showKeywords;
     if (showKeywords) {
-        $("#keywordsContainer").show();
+        $("#searchKeys").show();
         $("#searchKeys").focus();
     }
     else {
-        $("#keywordsContainer").hide();
+        $("#searchKeys").hide();
         showPosts();
     }
 }
-function renderAbout() {
-    hidePosts();
-    $("#actionTitle").text("À propos...");
-    $("#aboutContainer").show();
+
+/////////////////////////// Views management ////////////////////////////////////////////////////////////
+
+function intialView() {
+    $("#createPost").show();
+    $("#hiddenIcon").hide();
+    $("#hiddenIcon2").hide();
+    $('#menu').show();
+    $('#commit').hide();
+    $('#abort').hide();
+    $('#form').hide();
+    $('#form').empty();
+    $('#aboutContainer').hide();
+    $('#errorContainer').hide();
+    showSearchIcon();
 }
+async function showPosts() {
+    intialView();
+    $("#viewTitle").text("Fil de nouvelles");
+    periodic_Refresh_paused = false;
+    await postsPanel.show();
+}
+function hidePosts() {
+    postsPanel.hide();
+    hideSearchIcon();
+    $("#createPost").hide();
+    $('#menu').hide();
+    periodic_Refresh_paused = true;
+}
+function showForm() {
+    hidePosts();
+    $('#form').show();
+    $('#commit').show();
+    $('#abort').show();
+}
+function showError(message, details = "") {
+    hidePosts();
+    $('#form').hide();
+    $('#form').empty();
+    $("#hiddenIcon").show();
+    $("#hiddenIcon2").show();
+    $('#commit').hide();
+    $('#abort').show();
+    $("#viewTitle").text("Erreur du serveur...");
+    $("#errorContainer").show();
+    $("#errorContainer").empty();
+    $("#errorContainer").append($(`<div>${message}</div>`));
+    $("#errorContainer").append($(`<div>${details}</div>`));
+}
+
 function showCreatePostForm() {
+    showForm();
+    $("#viewTitle").text("Ajout de nouvelle");
     renderPostForm();
 }
-async function showEditPostForm(id) {
-    addWaitingGif();
-    let response = await Posts_API.Get(id)
-    if (!Posts_API.error) {
-        let Post = response.data;
-        if (Post !== null)
-            renderPostForm(Post);
-        else
-            renderError("Post introuvable!");
-    } else {
-        renderError(Posts_API.currentHttpError);
-    }
-    removeWaitingGif();
+function showEditPostForm(id) {
+    showForm();
+    $("#viewTitle").text("Modification de nouvelle");
+    renderEditPostForm(id);
 }
-async function showDeletePostForm(id) {
+function showDeletePostForm(id) {
+    showForm();
+    $("#viewTitle").text("Retrait de nouvelle");
+    renderDeletePostForm(id);
+}
+function showAbout() {
     hidePosts();
-    $("#actionTitle").text("Retrait");
-    $('#form').show();
-    $('#form').empty();
-    $('#confirmPanel').show();
-    let response = await Posts_API.Get(id)
-    if (!Posts_API.error) {
-        let post = response.data;
-        if (post !== null) {
-            let date = convertToFrenchDate(UTC_To_Local(post.Date));
-            $("#form").append(`
-                
-                <div class="post" id="${post.Id}">
-                <div class="postHeader">  ${post.Category} </div>
-                <div class="postTitle ellipsis"> ${post.Title} </div>
-                <img class="postImage" src='${post.Image}'/>
-                <div class="postDate"> ${date} </div>
-                <div class="postTextContainer showExtra">
-                    <div class="postText">${post.Text}</div>
-                </div>
-            `);
-            linefeeds_to_Html_br(".postText");
-            // attach form buttons click event callback
-            $('#deletePost').on("click", async function () {
-                await Posts_API.Delete(post.Id);
-                if (!Posts_API.error) {
-                    showPosts();
-                    await postsPanel.update(false);
-                }
-                else {
-                    console.log(Posts_API.currentHttpError)
-                    renderError("Une erreur est survenue!");
-                }
-            });
-            $('#cancel').on("click", function () {
-                showPosts();
-            });
-
-        } else {
-            renderError("Post introuvable!");
-        }
-    } else
-        renderError(Posts_API.currentHttpError);
+    $("#hiddenIcon").show();
+    $("#hiddenIcon2").show();
+    $('#abort').show();
+    $("#viewTitle").text("À propos...");
+    $("#aboutContainer").show();
 }
 
 //////////////////////////// Posts rendering /////////////////////////////////////////////////////////////
+
+//////////////////////////// Posts rendering /////////////////////////////////////////////////////////////
+
 function start_Periodic_Refresh() {
     setInterval(async () => {
         if (!periodic_Refresh_paused) {
             let etag = await Posts_API.HEAD();
             if (currentETag != etag) {
                 currentETag = etag;
-                await postsPanel.update(false);
+                showPosts();
             }
         }
     },
@@ -182,7 +180,7 @@ function start_Periodic_Refresh() {
 }
 async function renderPosts(queryString) {
     let endOfData = false;
-    queryString += "&sort=date,desc";  
+    queryString += "&sort=date,desc";
     compileCategories();
     if (selectedCategory != "") queryString += "&category=" + selectedCategory;
     if (showKeywords) {
@@ -205,7 +203,7 @@ async function renderPosts(queryString) {
         highlightKeywords();
         attach_Posts_UI_Events_Callback();
     } else {
-        renderError(Posts_API.currentHttpError);
+        showError(Posts_API.currentHttpError);
     }
     removeWaitingGif();
     return endOfData;
@@ -273,16 +271,16 @@ function updateDropDownMenu() {
         </div>
         `));
     $('#aboutCmd').on("click", function () {
-        renderAbout();
+        showAbout();
     });
-    $('#allCatCmd').on("click", function () {
+    $('#allCatCmd').on("click", async function () {
         selectedCategory = "";
-        showPosts();
+        await showPosts();
         updateDropDownMenu();
     });
-    $('.category').on("click", function () {
+    $('.category').on("click", async function () {
         selectedCategory = $(this).text().trim();
-        showPosts();
+        await showPosts();
         updateDropDownMenu();
     });
 }
@@ -342,6 +340,7 @@ function removeWaitingGif() {
 }
 
 /////////////////////// Posts content manipulation ///////////////////////////////////////////////////////
+
 function linefeeds_to_Html_br(selector) {
     $.each($(selector), function () {
         let postText = $(this);
@@ -390,6 +389,59 @@ function highlightKeywords() {
 
 //////////////////////// Forms rendering /////////////////////////////////////////////////////////////////
 
+async function renderEditPostForm(id) {
+    $('#commit').show();
+    addWaitingGif();
+    let response = await Posts_API.Get(id)
+    if (!Posts_API.error) {
+        let Post = response.data;
+        if (Post !== null)
+            renderPostForm(Post);
+        else
+            showError("Post introuvable!");
+    } else {
+        showError(Posts_API.currentHttpError);
+    }
+    removeWaitingGif();
+}
+async function renderDeletePostForm(id) {
+    let response = await Posts_API.Get(id)
+    if (!Posts_API.error) {
+        let post = response.data;
+        if (post !== null) {
+            let date = convertToFrenchDate(UTC_To_Local(post.Date));
+            $("#form").append(`
+                <div class="post" id="${post.Id}">
+                <div class="postHeader">  ${post.Category} </div>
+                <div class="postTitle ellipsis"> ${post.Title} </div>
+                <img class="postImage" src='${post.Image}'/>
+                <div class="postDate"> ${date} </div>
+                <div class="postTextContainer showExtra">
+                    <div class="postText">${post.Text}</div>
+                </div>
+            `);
+            linefeeds_to_Html_br(".postText");
+            // attach form buttons click event callback
+            $('#commit').on("click", async function () {
+                await Posts_API.Delete(post.Id);
+                if (!Posts_API.error) {
+                    await showPosts();
+                }
+                else {
+                    console.log(Posts_API.currentHttpError)
+                    showError("Une erreur est survenue!");
+                }
+            });
+            $('#cancel').on("click", async function () {
+                await showPosts();
+            });
+
+        } else {
+            showError("Post introuvable!");
+        }
+    } else
+        showError(Posts_API.currentHttpError);
+}
 function newPost() {
     let Post = {};
     Post.Id = 0;
@@ -400,10 +452,8 @@ function newPost() {
     return Post;
 }
 function renderPostForm(post = null) {
-    hidePosts();
     let create = post == null;
     if (create) post = newPost();
-    $("#actionTitle").text(create ? "Création" : "Modification");
     $("#form").show();
     $("#form").empty();
     $("#form").append(`
@@ -448,59 +498,49 @@ function renderPostForm(post = null) {
                      waitingImage="Loading_icon.gif">
                 </div>
             </div>
-           
             <div id="keepDateControl">
                 <input type="checkbox" name="keepDate" id="keepDate" class="checkbox" checked>
                 <label for="keepDate"> Conserver la date de création </label>
-                <br>
             </div>
-            <br>
-            <input type="submit" value="Enregistrer" id="savePost" class="btn btn-primary">
-            <input type="button" value="Annuler" id="cancel" class="btn btn-secondary">
+            <input type="submit" value="Enregistrer" id="savePost" class="btn btn-primary displayNone">
         </form>
     `);
     if (create) $("#keepDateControl").hide();
-    initFormValidation();
+
     initImageUploaders();
-    $("#Url").on("change", function () {
-        let favicon = makeFavicon($("#Url").val(), true);
-        $("#faviconLink").empty();
-        $("#faviconLink").attr("href", $("#Url").val());
-        $("#faviconLink").append(favicon);
-    })
+    initFormValidation(); // important do to after all html injection!
+
+    $("#commit").click(function () {
+        $("#commit").off();
+        return $('#savePost').trigger("click");
+    });
     $('#postForm').on("submit", async function (event) {
         event.preventDefault();
         let post = getFormData($("#postForm"));
         if (post.Category != selectedCategory)
             selectedCategory = "";
-        if (create || !('keepDate' in post)) post.Date = Local_to_UTC(Date.now());
+        if (create || !('keepDate' in post))
+            post.Date = Local_to_UTC(Date.now());
+        delete post.keepDate;
         post = await Posts_API.Save(post, create);
         if (!Posts_API.error) {
-            showPosts();
-            await postsPanel.update(false);
+            await showPosts();
             postsPanel.scrollToElem(post.Id);
         }
         else
-            renderError("Une erreur est survenue!");
+            showError("Une erreur est survenue! ", Posts_API.currentHttpError);
     });
-    $('#cancel').on("click", function () {
-        showPosts();
+    $('#cancel').on("click", async function () {
+        await showPosts();
     });
 }
 function getFormData($form) {
+    // prevent html injections
     const removeTag = new RegExp("(<[a-zA-Z0-9]+>)|(</[a-zA-Z0-9]+>)", "g");
     var jsonObject = {};
+    // grab data from all controls
     $.each($form.serializeArray(), (index, control) => {
         jsonObject[control.name] = control.value.replace(removeTag, "");
     });
     return jsonObject;
 }
-
-/////////////////// Error rendering /////////////////////////////////////////////////////////////////////
-function renderError(message) {
-    hidePosts();
-    $("#actionTitle").text("Erreur du serveur...");
-    $("#errorContainer").show();
-    $("#errorContainer").append($(`<div>${message}</div>`));
-}
-

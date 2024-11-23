@@ -1,7 +1,7 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 // Author: Nicolas Chourot
-// 2023
+// February 2023
 //
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
@@ -25,6 +25,7 @@
             id='0' 
             controlId='PhotoImageData' 
             imageSrc='No_image.png' 
+            newImage="true/false"
             waitingImage="Loading_icon.gif">
     </div>
 */
@@ -73,11 +74,11 @@ function initImageUploaders() {
         let id = $(this).attr('id');
         let controlId = $(this).attr('controlId');
         let waitingImage = $(this).attr('waitingImage');
-        let newImage = $(this).attr('newImage') == '1';
+        let newImage = $(this).attr('newImage') == 'true';
         $(this).css("display","flex");
         $(this).css("flex-direction","column");
         $(this).css("align-items","center");
-       // $(this).css("border","1px solid lightgray");
+        $(this).css("border","1px solid lightgray");
         $(this).css("border-radius","6px");
         $(this).css("padding","6px");
         $(this).css("padding-bottom","3px");
@@ -183,7 +184,6 @@ function initImageUploaders() {
         $(`#${controlId}`).css("left",`${controlIdLeft}px`);
         $(`#${controlId}`).css("top",`${controlIdTop}px`);
     });
-    //initFormValidation();
 }
 
 function ImageUploader_AttachEvent(controlId) {

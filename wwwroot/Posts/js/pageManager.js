@@ -20,7 +20,6 @@ class PageManager {
     }
     async show() {
         this.scrollPanel.show();
-        this.restoreScrollPosition();
         this.hidden = false;
         await this.update(false);
     }
@@ -88,7 +87,7 @@ class PageManager {
         if (!this.hidden) this.restoreScrollPosition();
         let instance = this;
         this.scrollPanel.scroll(function () {
-            if (!endOfData && (instance.scrollPanel.scrollTop() + instance.scrollPanel.outerHeight() >= instance.itemsPanel.outerHeight() - instance.itemLayout.height / 2)) {
+            if (!endOfData && (instance.scrollPanel.scrollTop() + instance.scrollPanel.outerHeight() >= instance.itemsPanel.outerHeight() - 10 /*- instance.itemLayout.height / 2*/)) {
                 instance.scrollPanel.off();
                 instance.currentPage.offset++;
                 instance.update(true);
