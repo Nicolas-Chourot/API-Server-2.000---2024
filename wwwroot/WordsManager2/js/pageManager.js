@@ -1,19 +1,39 @@
 class PageManager {
-    // getItemsCallBack must return true when there is no more data to collect
-    constructor(scrollPanelId, itemsPanelId, itemLayout, getItemsCallBack) {
+    // scrollPanelId represent the container that allow to scroll through itemsPanel
+    // itemSampleId is used to find the size of items in pixels
+    // getItemsCallBack is a function that collect and render all items in the itemsPanel
+    // and must return true when there is no more data to collect
+    constructor(scrollPanelId, itemsPanelId, itemSampleId, getItemsCallBack) {
+        this.hidden = false;
         this.scrollPanel = $(`#${scrollPanelId}`);
         this.itemsPanel = $(`#${itemsPanelId}`);
-        this.itemLayout = itemLayout;
-        this.currentPage = { limit: -1, offset: -1 };
+        this.itemLayout = {
+            width: $(`#${itemSampleId}`).outerWidth(),
+            height: $(`#${itemSampleId}`).outerHeight()
+        };
+        this.currentPage = { limit: -1, offset: 0 };
         this.resizeTimer = null;
         this.resizeEndTriggerDelai = 300;
         this.getItems = getItemsCallBack;
         this.installViewportReziseEvent();
-        this.reset();
     }
-    reset() {
+    async show(reset = false) {
+        this.scrollPanel.show();
+        this.hidden = false;
+        if (reset)
+            this.reset();
+        else
+            await this.update(false);
+    }
+    hide() {
+        this.storeScrollPosition();
+        this.scrollPanel.hide();
+        this.hidden = true;
+    }
+    async reset() {
+        this.currentPage.offset = 0;
         this.resetScrollPosition();
-        this.update(false);
+        await this.update(false);
     }
     installViewportReziseEvent() {
         let instance = this;
@@ -64,17 +84,23 @@ class PageManager {
         this.scrollPanel.scrollTop(this.previousScrollPosition);
     }
     async update(append = true) {
-        this.storeScrollPosition();
-        if (!append) this.itemsPanel.empty();
+        console.log('begin PageManager.update', append);
+        if (!this.hidden) this.storeScrollPosition();
+        if (!append)
+            this.itemsPanel.empty();
         let endOfData = await this.getItems(this.currentPageToQueryString(append));
-        this.restoreScrollPosition();
+        this.currentPage.offset++;
+       
+        if (!this.hidden) this.restoreScrollPosition();
         let instance = this;
-        this.scrollPanel.scroll(function () {
-            if (!endOfData && (instance.scrollPanel.scrollTop() + instance.scrollPanel.outerHeight() >= instance.itemsPanel.outerHeight() - instance.itemLayout.height / 2)) {
+        this.scrollPanel.scroll(async function () {
+            console.log(endOfData, 'items', instance.itemsPanel.outerHeight(), 'scrollTop', instance.scrollPanel.scrollTop(), 'scrollPanel', instance.scrollPanel.outerHeight())
+            if (!endOfData && ((instance.scrollPanel.scrollTop() + instance.scrollPanel.outerHeight()) >= instance.itemsPanel.outerHeight())) {
                 instance.scrollPanel.off();
-                instance.currentPage.offset++;
-                instance.update(true);
+                console.log('internal update');
+                await instance.update(true);
             }
         });
+        console.log('end PageManager.update', append);
     }
 }

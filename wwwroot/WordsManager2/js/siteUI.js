@@ -4,12 +4,7 @@ let pageManager;
 Init_UI();
 
 function Init_UI() {
-
-    let wordItemLayout = {
-        width: $("#sample").outerWidth(),
-        height: $("#sample").outerHeight()
-    };
-    pageManager = new PageManager('scrollPanel', 'wordsPanel', wordItemLayout, renderWords);
+    pageManager = new PageManager('scrollPanel', 'wordsPanel', 'sample', renderWords);
     $("#actionTitle").text("Mots");
     $("#search").show();
     $("#abort").hide();
@@ -33,6 +28,7 @@ function Init_UI() {
     $('#doSearch').on('click', () => {
         doSearch();
     })
+
 }
 function doSearch() {
     search = $("#searchKey").val().replace(' ', ',');
@@ -72,9 +68,9 @@ async function renderWords(queryString) {
         if (words.length > 0) {
             words.forEach(word => { $("#wordsPanel").append(renderWord(word)); });
             endOfData = false;
-        } else
-            removeWaitingGif();
-    return true;
+        } else console.log('end of data')
+    removeWaitingGif();
+    return endOfData;
 }
 function addWaitingGif() {
     $("#wordsPanel").append($("<div id='waitingGif' class='waitingGifcontainer'><img class='waitingGif' src='Loading_icon.gif' /></div>'"));

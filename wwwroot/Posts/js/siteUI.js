@@ -36,7 +36,7 @@ async function Init_UI() {
     });
 
     installKeywordsOnkeyupEvent();
-    showPosts();
+    await showPosts();
     start_Periodic_Refresh();
 }
 
@@ -104,11 +104,11 @@ function intialView() {
     $('#errorContainer').hide();
     showSearchIcon();
 }
-function showPosts(reset = false) {
+async function showPosts(reset = false) {
     intialView();
     $("#viewTitle").text("Fil de nouvelles");
     periodic_Refresh_paused = false;
-    postsPanel.show(reset);
+    await postsPanel.show(reset);
 }
 function hidePosts() {
     postsPanel.hide();
@@ -172,7 +172,7 @@ function start_Periodic_Refresh() {
             let etag = await Posts_API.HEAD();
             if (currentETag != etag) {
                 currentETag = etag;
-                showPosts();
+                await showPosts();
             }
         }
     },
@@ -277,12 +277,12 @@ function updateDropDownMenu() {
     });
     $('#allCatCmd').on("click", async function () {
         selectedCategory = "";
-        showPosts(true);
+        await showPosts(true);
         updateDropDownMenu();
     });
     $('.category').on("click", async function () {
         selectedCategory = $(this).text().trim();
-        showPosts(true);
+        await showPosts(true);
         updateDropDownMenu();
     });
 }
@@ -427,7 +427,7 @@ async function renderDeletePostForm(id) {
             $('#commit').on("click", async function () {
                 await Posts_API.Delete(post.Id);
                 if (!Posts_API.error) {
-                    showPosts();
+                    await showPosts();
                 }
                 else {
                     console.log(Posts_API.currentHttpError)
@@ -435,7 +435,7 @@ async function renderDeletePostForm(id) {
                 }
             });
             $('#cancel').on("click", async function () {
-                showPosts();
+                await showPosts();
             });
 
         } else {
@@ -526,14 +526,14 @@ function renderPostForm(post = null) {
         delete post.keepDate;
         post = await Posts_API.Save(post, create);
         if (!Posts_API.error) {
-            showPosts();
+            await showPosts();
             postsPanel.scrollToElem(post.Id);
         }
         else
             showError("Une erreur est survenue! ", Posts_API.currentHttpError);
     });
     $('#cancel').on("click", async function () {
-        showPosts();
+        await showPosts();
     });
 }
 function getFormData($form) {

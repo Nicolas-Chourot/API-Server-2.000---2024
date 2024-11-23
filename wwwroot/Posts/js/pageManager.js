@@ -84,22 +84,18 @@ class PageManager {
         this.scrollPanel.scrollTop(this.previousScrollPosition);
     }
     async update(append = true) {
-        console.log('begin PageManager.update', append);
         if (!this.hidden) this.storeScrollPosition();
         if (!append)
             this.itemsPanel.empty();
         let endOfData = await this.getItems(this.currentPageToQueryString(append));
         this.currentPage.offset++;
-        console.log('getItems', 'items', this.itemsPanel.outerHeight(), 'scrollTop', this.scrollPanel.scrollTop(), 'scrollPanel', this.scrollPanel.outerHeight())
         if (!this.hidden) this.restoreScrollPosition();
         let instance = this;
         this.scrollPanel.scroll(async function () {
-            if (!endOfData && (instance.scrollPanel.scrollTop() + instance.scrollPanel.outerHeight() >= instance.itemsPanel.outerHeight() - 10 /*- instance.itemLayout.height / 2*/)) {
+            if (!endOfData && (instance.scrollPanel.scrollTop() + instance.scrollPanel.outerHeight() >= instance.itemsPanel.outerHeight() - instance.itemLayout.height / 2)) {
                 instance.scrollPanel.off();
-                console.log('internal update');
                 await instance.update(true);
             }
         });
-        console.log('end PageManager.update', append);
     }
 }
