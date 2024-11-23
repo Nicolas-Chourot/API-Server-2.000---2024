@@ -179,7 +179,6 @@ function start_Periodic_Refresh() {
         periodicRefreshPeriod * 1000);
 }
 async function renderPosts(queryString) {
-    console.log('begin renderPosts', queryString);
     let endOfData = false;
     queryString += "&sort=date,desc";
     compileCategories();
@@ -207,7 +206,6 @@ async function renderPosts(queryString) {
         showError(Posts_API.currentHttpError);
     }
     removeWaitingGif();
-    console.log('end renderPosts', queryString);
     return endOfData;
 }
 function renderPost(post) {
