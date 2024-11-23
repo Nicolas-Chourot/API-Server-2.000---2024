@@ -36,7 +36,7 @@ async function Init_UI() {
     });
 
     installKeywordsOnkeyupEvent();
-    intialView();
+    showPosts();
     start_Periodic_Refresh();
 }
 
@@ -47,11 +47,11 @@ function installKeywordsOnkeyupEvent() {
         clearTimeout(keywordsOnchangeTimger);
         keywordsOnchangeTimger = setTimeout(() => {
             cleanSearchKeywords();
-            showPosts();
+            showPosts(true);
         }, keywordsOnchangeDelay);
     });
     $("#searchKeys").on('search', function () {
-        showPosts();
+        showPosts(true);
     });
 }
 function cleanSearchKeywords() {
@@ -85,7 +85,7 @@ function toogleShowKeywords() {
     }
     else {
         $("#searchKeys").hide();
-        showPosts();
+        showPosts(true);
     }
 }
 
@@ -104,11 +104,11 @@ function intialView() {
     $('#errorContainer').hide();
     showSearchIcon();
 }
-async function showPosts() {
+function showPosts(reset = false) {
     intialView();
     $("#viewTitle").text("Fil de nouvelles");
     periodic_Refresh_paused = false;
-    await postsPanel.show();
+    postsPanel.show(reset);
 }
 function hidePosts() {
     postsPanel.hide();
@@ -179,6 +179,7 @@ function start_Periodic_Refresh() {
         periodicRefreshPeriod * 1000);
 }
 async function renderPosts(queryString) {
+    console.log('begin renderPosts', queryString);
     let endOfData = false;
     queryString += "&sort=date,desc";
     compileCategories();
@@ -206,6 +207,7 @@ async function renderPosts(queryString) {
         showError(Posts_API.currentHttpError);
     }
     removeWaitingGif();
+    console.log('end renderPosts', queryString);
     return endOfData;
 }
 function renderPost(post) {
@@ -275,12 +277,12 @@ function updateDropDownMenu() {
     });
     $('#allCatCmd').on("click", async function () {
         selectedCategory = "";
-        await showPosts();
+        showPosts(true);
         updateDropDownMenu();
     });
     $('.category').on("click", async function () {
         selectedCategory = $(this).text().trim();
-        await showPosts();
+        showPosts(true);
         updateDropDownMenu();
     });
 }
@@ -425,7 +427,7 @@ async function renderDeletePostForm(id) {
             $('#commit').on("click", async function () {
                 await Posts_API.Delete(post.Id);
                 if (!Posts_API.error) {
-                    await showPosts();
+                    showPosts();
                 }
                 else {
                     console.log(Posts_API.currentHttpError)
@@ -433,7 +435,7 @@ async function renderDeletePostForm(id) {
                 }
             });
             $('#cancel').on("click", async function () {
-                await showPosts();
+                showPosts();
             });
 
         } else {
@@ -524,14 +526,14 @@ function renderPostForm(post = null) {
         delete post.keepDate;
         post = await Posts_API.Save(post, create);
         if (!Posts_API.error) {
-            await showPosts();
+            showPosts();
             postsPanel.scrollToElem(post.Id);
         }
         else
             showError("Une erreur est survenue! ", Posts_API.currentHttpError);
     });
     $('#cancel').on("click", async function () {
-        await showPosts();
+        showPosts();
     });
 }
 function getFormData($form) {

@@ -10,27 +10,30 @@ class PageManager {
         this.itemLayout = {
             width: $(`#${itemSampleId}`).outerWidth(),
             height: $(`#${itemSampleId}`).outerHeight()
-        };;
-        this.currentPage = { limit: -1, offset: -1 };
+        };
+        this.currentPage = { limit: -1, offset: 0 };
         this.resizeTimer = null;
         this.resizeEndTriggerDelai = 300;
         this.getItems = getItemsCallBack;
         this.installViewportReziseEvent();
-        this.reset();
     }
-    async show() {
+    async show(reset = false) {
         this.scrollPanel.show();
         this.hidden = false;
-        await this.update(false);
+        if (reset)
+            this.reset();
+        else
+            await this.update(false);
     }
     hide() {
         this.storeScrollPosition();
         this.scrollPanel.hide();
         this.hidden = true;
     }
-    reset() {
+    async reset() {
+        this.currentPage.offset = 0;
         this.resetScrollPosition();
-        this.update(false);
+        await this.update(false);
     }
     installViewportReziseEvent() {
         let instance = this;
@@ -42,7 +45,7 @@ class PageManager {
     setCurrentPageLimit() {
         let nbColumns = Math.trunc(this.scrollPanel.innerWidth() / this.itemLayout.width);
         if (nbColumns < 1) nbColumns = 1;
-        let nbRows = Math.round(this.scrollPanel.innerHeight() / this.itemLayout.height) ;
+        let nbRows = Math.round(this.scrollPanel.innerHeight() / this.itemLayout.height);
         this.currentPage.limit = nbRows * nbColumns + nbColumns /* make sure to always have a content overflow */;
     }
     currentPageToQueryString(append = false) {
@@ -81,17 +84,22 @@ class PageManager {
         this.scrollPanel.scrollTop(this.previousScrollPosition);
     }
     async update(append = true) {
+        console.log('begin PageManager.update', append);
         if (!this.hidden) this.storeScrollPosition();
-        if (!append) this.itemsPanel.empty();
+        if (!append)
+            this.itemsPanel.empty();
         let endOfData = await this.getItems(this.currentPageToQueryString(append));
+        this.currentPage.offset++;
+        console.log('getItems', 'items', this.itemsPanel.outerHeight(), 'scrollTop', this.scrollPanel.scrollTop(), 'scrollPanel', this.scrollPanel.outerHeight())
         if (!this.hidden) this.restoreScrollPosition();
         let instance = this;
-        this.scrollPanel.scroll(function () {
+        this.scrollPanel.scroll(async function () {
             if (!endOfData && (instance.scrollPanel.scrollTop() + instance.scrollPanel.outerHeight() >= instance.itemsPanel.outerHeight() - 10 /*- instance.itemLayout.height / 2*/)) {
                 instance.scrollPanel.off();
-                instance.currentPage.offset++;
-                instance.update(true);
+                console.log('internal update');
+                await instance.update(true);
             }
         });
+        console.log('end PageManager.update', append);
     }
 }
