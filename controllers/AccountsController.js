@@ -83,9 +83,10 @@ export default class AccountsController extends Controller {
             if (userFound) {
                 if (userFound.VerifyCode == code) {
                     userFound.VerifyCode = "verified";
-                    userFound = this.repository.update(userFound.Id, userFound);
+                    this.repository.update(userFound.Id, userFound);
                     if (this.repository.model.state.isValid) {
-                        this.HttpContext.response.updated(userFound);
+                        userFound = this.repository.get(userFound.Id); // get data binded record
+                        this.HttpContext.response.JSON(userFound);
                         this.sendConfirmedEmail(userFound);
                     } else {
                         this.HttpContext.response.unprocessable();
@@ -106,11 +107,11 @@ export default class AccountsController extends Controller {
             let email = this.HttpContext.path.params.Email;
             if (id && email) {
                 let prototype = { Id: id, Email: email };
-                this.HttpContext.response.updated(this.repository.checkConflict(prototype));
+                this.HttpContext.response.JSON(this.repository.checkConflict(prototype));
             } else
-                this.HttpContext.response.updated(false);
+                this.HttpContext.response.JSON(false);
         } else
-            this.HttpContext.response.updated(false);
+            this.HttpContext.response.JSON(false);
     }
 
     // POST: account/register body payload[{"Id": 0, "Name": "...", "Email": "...", "Password": "..."}]
@@ -141,7 +142,7 @@ export default class AccountsController extends Controller {
             foundUser.Authorizations.writeAccess = foundUser.Authorizations.writeAccess == 1 ? 2 : 1;
             let updatedUser = this.repository.update(user.Id, foundUser);
             if (this.repository.model.state.isValid)
-                this.HttpContext.response.updated(updatedUser);
+                this.HttpContext.response.JSON(updatedUser);
             else
                 this.HttpContext.response.badRequest(this.repository.model.state.errors);
         } else
@@ -154,7 +155,7 @@ export default class AccountsController extends Controller {
             foundUser.Authorizations.writeAccess = foundUser.Authorizations.writeAccess == 1 ? -1 : 1;
             let updatedUser = this.repository.update(user.Id, foundUser);
             if (this.repository.model.state.isValid)
-                this.HttpContext.response.updated(updatedUser);
+                this.HttpContext.response.JSON(updatedUser);
             else
                 this.HttpContext.response.badRequest(this.repository.model.state.errors);
         } else
@@ -163,7 +164,7 @@ export default class AccountsController extends Controller {
     // PUT:account/modify body payload[{"Id": 0, "Name": "...", "Email": "...", "Password": "..."}]
     modify(user) {
         // empty asset members imply no change and there values will be taken from the stored record
-        if (AccessControl.writeGranted(this.HttpContext, AccessControl.user())) {
+        if (AccessControl.writeGranted(this.HttpContext.authorizations, AccessControl.user())) {
             if (this.repository != null) {
                 user.Created = utilities.nowInSeconds();
                 let foundedUser = this.repository.findByField("Id", user.Id);
@@ -179,10 +180,11 @@ export default class AccountsController extends Controller {
                     } else {
                         user.VerifyCode = foundedUser.VerifyCode;
                     }
-                    let updatedUser = this.repository.update(user.Id, user);
+                    this.repository.update(user.Id, user);
+                    let updatedUser = this.repository.get(user.Id); // must get record user.id with binded data
+
                     if (this.repository.model.state.isValid) {
-                        this.HttpContext.response.updated(updatedUser);
-                        this.photosRepository.newETag(); // client side related photos must be updated 
+                        this.HttpContext.response.JSON(updatedUser, this.repository.ETag);
                     }
                     else {
                         if (this.repository.model.state.inConflict)
@@ -201,7 +203,7 @@ export default class AccountsController extends Controller {
     // GET:account/remove/id
     remove(id) { // warning! this is not an API endpoint 
         // todo make sure that the requester has legitimity to delete ethier itself or its an admin
-        if (AccessControl.writeGrantedAdminOrOwner(this.HttpContext, this.requiredAuthorizations, id)) {
+        if (AccessControl.writeGrantedAdminOrOwner(this.HttpContext.authorizations, this.requiredAuthorizations, id)) {
             // todo
         }
     }

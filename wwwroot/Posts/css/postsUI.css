@@ -5,7 +5,7 @@
     scroll-snap-align: start;
 }
 
-.post .cmdIconSmall {
+.postX .cmdIconSmall {
     display: none;
 }
 
@@ -58,10 +58,39 @@
     width: 100%;
 }
 
+.UserAvatarXSmall {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 46px;
+    height: 46px;
+    border-radius: 30px;
+    color: black;
+    border: 2px solid white;
+    cursor: pointer;
+}
+
+.ownerLayout {
+    display: grid;
+    grid-template-columns: 50px auto;
+    align-items: center;
+    font-weight: bold;
+    font-size: 0.9em;
+}
+
 .postDate {
-    font-size: 12px;
+    margin-top: 4px;
+    font-size: 10px;
     margin-bottom: 20px;
     color: gray;
+    text-align: right;
+}
+
+.postOwnerAndDate {
+    margin-top: 4px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin-bottom: 10px;
 }
 
 .postText {
@@ -97,4 +126,41 @@
 .imageUploaderContainer {
     border: 1px solid #ccc;
     border-radius: var(--borderRadius);
+}
+
+.commentsPanel {
+    border-radius: 5px;
+    margin-top: 10px;
+    border: 1px solid #ccc;
+    padding:4px;
+    background-color: antiquewhite;
+    display:none;
+}
+
+.commentsHeader {
+    display:grid;
+    grid-template-columns: auto 30px;
+    align-items: center;
+}
+
+.commentEditor{
+    display:none;
+}
+
+.lessText {
+    display:none;
+}
+
+.commentEditorLayout {
+    padding: 4px;
+    display:flex;
+    gap:8px;
+}
+
+.comments {
+    max-height: 500px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    overflow-y: auto;
+    scrollbar-gutter: stable;
 }

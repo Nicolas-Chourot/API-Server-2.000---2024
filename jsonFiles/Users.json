@@ -7,23 +7,77 @@
         "Avatar": "f5795080-4468-11ee-8281-2f600646bb7f.jpeg",
         "Created": 1702469431,
         "Authorizations": {
-            "readAccess": 2,
-            "writeAccess": 2
+            "readAccess": 3,
+            "writeAccess": 3
         },
         "VerifyCode": "verified"
     },
     {
-        "Email": "nicolaschourot@videotron.ca",
+        "Email": "nicolaschourot@gmail.ca",
         "Password": "password",
-        "Name": "Nicolas",
+        "Name": "Nicolas Chourot",
         "Avatar": "04e2be90-a45c-11ef-9487-5be10abe1de4.jpeg",
-        "Created": 1731790056,
-        "VerifyCode": "verified",
+        "Created": 1732463927,
         "Authorizations": {
             "readAccess": 1,
             "writeAccess": 1
         },
-        "Verifycode": 516540,
+        "VerifyCode": "verified",
         "Id": "02a2b9a0-a45c-11ef-9487-5be10abe1de4"
+    },
+    {
+        "Email": "Saliha.Yacoub@clg.qc.ca",
+        "Password": "password",
+        "Name": "Saliha Yacoub",
+        "Avatar": "5b156ce0-46c0-11ee-9c7d-4dfffb69e19c.png",
+        "Created": 1731790056,
+        "VerifyCode": "verified",
+        "Authorizations": {
+            "readAccess": 2,
+            "writeAccess": 2
+        },
+        "Verifycode": "verified",
+        "Id": "5b156ce0-46c0-11ee-9c7d-4dfffb69e19c"
+    },
+    {
+        "Email": "Stephane.Chasse@clg.qc.ca",
+        "Password": "password",
+        "Name": "Stéphane Chassé",
+        "Avatar": "78f177e0-46c0-11ee-9c7d-4dfffb69e19c.png",
+        "Created": 1731790056,
+        "VerifyCode": "verified",
+        "Authorizations": {
+            "readAccess": 2,
+            "writeAccess": 2
+        },
+        "Verifycode": "verified",
+        "Id": "78f177e0-46c0-11ee-9c7d-4dfffb69e19c"
+    },
+    {
+        "Email": "Patrice.Roy@clg.qc.ca",
+        "Password": "password",
+        "Name": "Patrice Roy",
+        "Avatar": "a634d710-46c0-11ee-9c7d-4dfffb69e19c.png",
+        "Created": 1731790056,
+        "VerifyCode": "verified",
+        "Authorizations": {
+            "readAccess": 2,
+            "writeAccess": 2
+        },
+        "Verifycode": "verified",
+        "Id": "a634d710-46c0-11ee-9c7d-4dfffb69e19c"
+    },
+    {
+        "Email": "nicolaschourot@videotron.ca",
+        "Password": "password",
+        "Name": "Nicolas Chourot",
+        "Avatar": "f11ee961-aa82-11ef-b942-e7f097a2ee7a.jpeg",
+        "Created": 1732470515,
+        "Authorizations": {
+            "readAccess": 1,
+            "writeAccess": 1
+        },
+        "VerifyCode": "verified",
+        "Id": "f11ee960-aa82-11ef-b942-e7f097a2ee7a"
     }
 ]

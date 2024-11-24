@@ -11,10 +11,10 @@ export default class AccessControl {
         return { readAccess: 1, writeAccess: 1 };
     }
     static superUser() {
-        return { readAccess: 2, writeAccess: 1 };
+        return { readAccess: 2, writeAccess: 2 };
     }
     static admin() {
-        return { readAccess: 2, writeAccess: 2 };
+        return { readAccess: 3, writeAccess: 3 };
     }
     static granted(authorizations, requiredAccess) {
         if (requiredAccess) {

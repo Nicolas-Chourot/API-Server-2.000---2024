@@ -207,25 +207,30 @@ async function renderPosts(queryString) {
     removeWaitingGif();
     return endOfData;
 }
-function renderPost(post) {
+function renderPost(post, loggedUser) {
     let date = convertToFrenchDate(UTC_To_Local(post.Date));
+    let crudIcon =
+        `
+        <span class="editCmd cmdIconSmall fa fa-pencil" postId="${post.Id}" title="Modifier nouvelle"></span>
+        <span class="deleteCmd cmdIconSmall fa fa-trash" postId="${post.Id}" title="Effacer nouvelle"></span>
+        `;
+
     return $(`
         <div class="post" id="${post.Id}">
             <div class="postHeader">
                 ${post.Category}
-                <span class="editCmd cmdIconSmall fa fa-pencil" editPostId="${post.Id}" title="Modifier nouvelle"></span>
-                <span class="deleteCmd cmdIconSmall fa fa-trash" deletePostId="${post.Id}" title="Effacer nouvelle"></span>
+                ${crudIcon}
             </div>
             <div class="postTitle"> ${post.Title} </div>
             <img class="postImage" src='${post.Image}'/>
             <div class="postDate"> ${date} </div>
-            <div class="postTextContainer hideExtra">
-                <div class="postText">${post.Text}</div>
+            <div postId="${post.Id}" class="postTextContainer hideExtra">
+                <div class="postText" >${post.Text}</div>
             </div>
             <div class="postfooter">
-                <span class="moreText cmdIconXSmall fa fa-angle-double-down" title="Afficher la suite"></span>
-                <span class="lessText cmdIconXSmall fa fa-angle-double-up" title="Réduire..."></span>
-            </div>
+                <span postId="${post.Id}" class="moreText cmdIconXSmall fa fa-angle-double-down" title="Afficher la suite"></span>
+                <span postId="${post.Id}" class="lessText cmdIconXSmall fa fa-angle-double-up" title="Réduire..."></span>
+            </div>         
         </div>
     `);
 }
@@ -284,47 +289,31 @@ function updateDropDownMenu() {
     });
 }
 function attach_Posts_UI_Events_Callback() {
-    linefeeds_to_Html_br(".postText");
 
+    linefeeds_to_Html_br(".postText");
     // attach icon command click event callback
     $(".editCmd").off();
     $(".editCmd").on("click", function () {
-        showEditPostForm($(this).attr("editPostId"));
+        showEditPostForm($(this).attr("postId"));
     });
     $(".deleteCmd").off();
     $(".deleteCmd").on("click", function () {
-        showDeletePostForm($(this).attr("deletePostId"));
+        showDeletePostForm($(this).attr("postId"));
     });
-    $(".lessText").hide();
-    $(".postfooter").hide();
 
-    // attach text collapse un collapse events callbacks
-    $.each($(".postTextContainer"), function () {
-        let text = $(this).find(">:first-child");
-        if ($(this).innerHeight() < text.outerHeight()) {
-            let postFooter = $(this).parent().find(">:last-child");
-            postFooter.show();
-            let lessText = postFooter.find(">:last-child");
-            lessText.hide();
-        }
-    })
     $(".moreText").click(function () {
-        let moreText = $(this);
-        let postTextContainer = $(this).parent().parent().find(">:nth-child(5)");
-        postTextContainer.addClass('showExtra');
-        postTextContainer.removeClass('hideExtra');
-        let lessText = moreText.parent().find(">:last-child");
-        moreText.hide();
-        lessText.show();
+        $(`.commentsPanel[postId=${$(this).attr("postId")}]`).show();
+        $(`.lessText[postId=${$(this).attr("postId")}]`).show();
+        $(this).hide();
+        $(`.postTextContainer[postId=${$(this).attr("postId")}]`).addClass('showExtra');
+        $(`.postTextContainer[postId=${$(this).attr("postId")}]`).removeClass('hideExtra');
     })
     $(".lessText").click(function () {
-        let lessText = $(this);
-        let postTextContainer = lessText.parent().parent().find(">:nth-child(5)");
-        postTextContainer.addClass('hideExtra');
-        postTextContainer.removeClass('showExtra');
-        let moreText = $(this).parent().find(">:first-child");
-        moreText.show();
-        lessText.hide();
+        $(`.commentsPanel[postId=${$(this).attr("postId")}]`).hide();
+        $(`.moreText[postId=${$(this).attr("postId")}]`).show();
+        $(this).hide();
+        $(`.postTextContainer[postId=${$(this).attr("postId")}]`).addClass('hideExtra');
+        $(`.postTextContainer[postId=${$(this).attr("postId")}]`).removeClass('showExtra');
     })
 }
 function addWaitingGif() {
