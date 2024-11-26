@@ -144,12 +144,12 @@ function showCreatePostForm() {
 }
 function showEditPostForm(id) {
     showForm();
-    $("#viewTitle").text("Modification de nouvelle");
+    $("#viewTitle").text("Modification");
     renderEditPostForm(id);
 }
 function showDeletePostForm(id) {
     showForm();
-    $("#viewTitle").text("Retrait de nouvelle");
+    $("#viewTitle").text("Retrait");
     renderDeletePostForm(id);
 }
 function showAbout() {
