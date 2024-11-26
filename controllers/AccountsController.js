@@ -11,7 +11,7 @@ export default class AccountsController extends Controller {
         super(HttpContext, new Repository(new UserModel()), AccessControl.admin());
     }
     index(id) {
-        if (id != undefined) {
+        if (id != '') {
             if (AccessControl.readGranted(this.HttpContext.authorizations, AccessControl.admin()))
                 this.HttpContext.response.JSON(this.repository.get(id));
             else
