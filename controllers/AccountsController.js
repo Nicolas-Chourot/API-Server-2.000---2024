@@ -138,8 +138,10 @@ export default class AccountsController extends Controller {
     promote(user) {
         if (this.repository != null) {
             let foundUser = this.repository.findByField("Id", user.Id);
-            foundUser.Authorizations.readAccess = foundUser.Authorizations.readAccess == 1 ? 2 : 1;
-            foundUser.Authorizations.writeAccess = foundUser.Authorizations.writeAccess == 1 ? 2 : 1;
+            foundUser.Authorizations.readAccess++;
+            if (foundUser.Authorizations.readAccess > 3) foundUser.Authorizations.readAccess = 1;
+            foundUser.Authorizations.writeAccess++;
+            if (foundUser.Authorizations.writeAccess > 3) foundUser.Authorizations.writeAccess = 1;
             let updatedUser = this.repository.update(user.Id, foundUser);
             if (this.repository.model.state.isValid)
                 this.HttpContext.response.JSON(updatedUser);
