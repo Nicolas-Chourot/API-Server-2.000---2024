@@ -89,8 +89,8 @@ export default
                 }
                 return token;
             }
-            return null;
         }
+        return null;
     }
     static getUser(req) {
         if (req.headers["authorization"] != undefined) {
