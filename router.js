@@ -86,8 +86,8 @@ export const Registered_EndPoint = function (HttpContext) {
                 HttpContext.response.notFound();
                 resolve(true);
             }
-        }
-        resolve(false);
+        } else
+            resolve(false);
     })
 }
 
