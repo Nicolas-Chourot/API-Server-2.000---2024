@@ -48,7 +48,7 @@ export default class AccountsController extends Controller {
         let userId = this.HttpContext.path.params.userId;
         if (userId) {
             TokenManager.logout(userId);
-            this.HttpContext.response.accepted();
+            this.HttpContext.response.ok();
         } else {
             this.HttpContext.response.badRequest("UserId is not specified.")
         }
