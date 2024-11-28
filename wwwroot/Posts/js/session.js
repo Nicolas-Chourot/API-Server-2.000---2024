@@ -30,7 +30,9 @@ function noTimeout() {
     $(".popup").hide();
     clearTimeout(currentTimeouID);
 }
-function timeout() {
+function timeout(iddleTime = 0) {
+    if (iddleTime != 0)
+        maxStallingTime = iddleTime;
     startCountdown();
 }
 function startCountdown() {
