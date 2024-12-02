@@ -330,6 +330,7 @@ function attach_Posts_UI_Events_Callback() {
         $(`.commentsPanel[postId=${$(this).attr("postId")}]`).hide();
         $(`.moreText[postId=${$(this).attr("postId")}]`).show();
         $(this).hide();
+        postsPanel.scrollToElem($(this).attr("postId"));
         $(`.postTextContainer[postId=${$(this).attr("postId")}]`).addClass('hideExtra');
         $(`.postTextContainer[postId=${$(this).attr("postId")}]`).removeClass('showExtra');
     })
