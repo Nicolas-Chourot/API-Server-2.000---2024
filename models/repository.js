@@ -32,12 +32,18 @@ export default class Repository {
         else null;
     }
     newETag() {
-        this.ETag = uuidv1();
+        // include objects count in the returned Etag.
+        // this is usefull when client want to check if 
+        // the count of items has changed
+        this.ETag = this.count() + "-" + uuidv1();
         repositoryEtags[this.objectsName] = this.ETag;
     }
     objects() {
         if (this.objectsList == null) this.read();
         return this.objectsList;
+    }
+    count() {
+        return this.objects().length;
     }
     read() {
         this.objectsList = null;

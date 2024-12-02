@@ -4,13 +4,25 @@ class PageManager {
     // getItemsCallBack is a function that collect and render all items in the itemsPanel
     // and must return true when there is no more data to collect
     constructor(scrollPanelId, itemsPanelId, itemSampleId, getItemsCallBack) {
+        this.loadMoreTriggerMargin = 10;
+        this.itemsPanelId = itemsPanelId;
         this.hidden = false;
         this.scrollPanel = $(`#${scrollPanelId}`);
         this.itemsPanel = $(`#${itemsPanelId}`);
+
         this.itemLayout = {
             width: $(`#${itemSampleId}`).outerWidth(),
             height: $(`#${itemSampleId}`).outerHeight()
         };
+
+        this.itemsPanel.empty();
+
+        this.itemsPanel_alt = this.itemsPanel.clone(true, true);
+        this.itemsPanel_alt.attr('id', itemsPanelId + "-alt");
+        this.itemsPanel_alt.hide();
+
+        this.scrollPanel.append(this.itemsPanel_alt);
+
         this.currentPage = { limit: -1, offset: 0 };
         this.resizeTimer = null;
         this.resizeEndTriggerDelai = 300;
@@ -83,20 +95,38 @@ class PageManager {
         this.scrollPanel.off();
         this.scrollPanel.scrollTop(this.previousScrollPosition);
     }
+    append(elem) {
+        this.itemsPanel_alt.append(elem);
+    }
     async update(append = true) {
         if (!this.hidden) this.storeScrollPosition();
         if (!append)
-            this.itemsPanel.empty();
+            this.itemsPanel_alt.empty();
         let endOfData = await this.getItems(this.currentPageToQueryString(append));
-        
+
+        // replace itemsPanel content with itemsPanel_Alt
+        // in this manner we avoid client refresh blinks
+        $(`#${this.itemsPanelId}`).replaceWith(this.itemsPanel_alt);
+        $(`#${this.itemsPanelId}-alt`).attr('id', this.itemsPanelId);
+        this.itemsPanel = $(`#${this.itemsPanelId}`);
+
+        this.itemsPanel_alt = this.itemsPanel.clone(true, true);
+        this.itemsPanel_alt.attr('id', this.itemsPanelId + "-alt");
+        this.itemsPanel_alt.hide();
+        this.itemsPanel.show();
+        this.scrollPanel.append(this.itemsPanel_alt);
+
         if (!this.hidden) this.restoreScrollPosition();
+
         let instance = this;
+
         this.scrollPanel.scroll(async function () {
-            if (!endOfData && (instance.scrollPanel.scrollTop() + instance.scrollPanel.outerHeight() >= instance.itemsPanel.outerHeight() - 10/*- instance.itemLayout.height / 2*/)) {
+            if (!endOfData && (instance.scrollPanel.scrollTop() + instance.scrollPanel.outerHeight() >= instance.itemsPanel.outerHeight() - this.loadMoreTriggerMargin)) {
                 instance.scrollPanel.off();
                 instance.currentPage.offset++;
                 await instance.update(true);
             }
         });
+
     }
 }
