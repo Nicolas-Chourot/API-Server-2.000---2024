@@ -121,7 +121,7 @@ class PageManager {
         let instance = this;
 
         this.scrollPanel.scroll(async function () {
-            if (!endOfData && (instance.scrollPanel.scrollTop() + instance.scrollPanel.outerHeight() >= instance.itemsPanel.outerHeight() - this.loadMoreTriggerMargin)) {
+            if (!endOfData && (instance.scrollPanel.scrollTop() + instance.scrollPanel.outerHeight() >= instance.itemsPanel.outerHeight() - instance.loadMoreTriggerMargin)) {
                 instance.scrollPanel.off();
                 instance.currentPage.offset++;
                 await instance.update(true);
