@@ -15,8 +15,23 @@ export function capitalizeFirstLetter(s) {
     return s.charAt(0).toUpperCase() + s.slice(1);
 }
 export const nowInSeconds = () => {
-    const now = new Date();
-    return Math.round(now.getTime() / 1000);
+    const now = Local_to_UTC(new Date());
+    return Math.round(now/*.getTime()*/ / 1000);
+}
+export const UTC_To_Local = (UTC_numeric_date) => {
+    let UTC_Offset = new Date().getTimezoneOffset() / 60;
+    let UTC_Date = new Date(UTC_numeric_date);
+    UTC_Date.setHours(UTC_Date.getHours() - UTC_Offset);
+    let Local_numeric_date = UTC_Date.getTime();
+    return Local_numeric_date;
+}
+
+export const Local_to_UTC = (Local_numeric_date) => {
+    let UTC_Offset = new Date().getTimezoneOffset() / 60;
+    let Local_Date = new Date(Local_numeric_date);
+    Local_Date.setHours(Local_Date.getHours() + UTC_Offset);
+    let UTC_numeric_date = Local_Date.getTime();
+    return UTC_numeric_date;
 }
 export const deleteByIndex = (array, indexToDelete) => {
     for (let i = indexToDelete.length - 1; i >= 0; i--) {
