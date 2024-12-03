@@ -83,7 +83,7 @@ export default class AccountsController extends Controller {
             if (userFound) {
                 if (userFound.VerifyCode == code) {
                     userFound.VerifyCode = "verified";
-                    this.repository.update(userFound.Id, userFound);
+                    this.repository.update(userFound.Id, userFound, false);
                     if (this.repository.model.state.isValid) {
                         userFound = this.repository.get(userFound.Id); // get data binded record
                         this.HttpContext.response.JSON(userFound);
@@ -142,9 +142,11 @@ export default class AccountsController extends Controller {
             if (foundUser.Authorizations.readAccess > 3) foundUser.Authorizations.readAccess = 1;
             foundUser.Authorizations.writeAccess++;
             if (foundUser.Authorizations.writeAccess > 3) foundUser.Authorizations.writeAccess = 1;
-            let updatedUser = this.repository.update(user.Id, foundUser);
-            if (this.repository.model.state.isValid)
-                this.HttpContext.response.JSON(updatedUser);
+            this.repository.update(user.Id, foundUser, false);
+            if (this.repository.model.state.isValid) {
+                let userFound = this.repository.get(foundUser.Id); // get data binded record
+                this.HttpContext.response.JSON(userFound);
+            }
             else
                 this.HttpContext.response.badRequest(this.repository.model.state.errors);
         } else
@@ -155,9 +157,11 @@ export default class AccountsController extends Controller {
             let foundUser = this.repository.findByField("Id", user.Id);
             foundUser.Authorizations.readAccess = foundUser.Authorizations.readAccess == 1 ? -1 : 1;
             foundUser.Authorizations.writeAccess = foundUser.Authorizations.writeAccess == 1 ? -1 : 1;
-            let updatedUser = this.repository.update(user.Id, foundUser);
-            if (this.repository.model.state.isValid)
-                this.HttpContext.response.JSON(updatedUser);
+            this.repository.update(user.Id, foundUser, false);
+            if (this.repository.model.state.isValid) {
+                userFound = this.repository.get(userFound.Id); // get data binded record
+                this.HttpContext.response.JSON(userFound);
+            }
             else
                 this.HttpContext.response.badRequest(this.repository.model.state.errors);
         } else
