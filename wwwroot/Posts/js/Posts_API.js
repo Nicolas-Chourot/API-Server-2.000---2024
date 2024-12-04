@@ -1,7 +1,7 @@
 
 class Posts_API {
     static Host_URL() { return "http://localhost:5000"; }
-    static POST_API_URL() { return this.Host_URL() + "/api/posts" };
+    static POSTS_API_URL() { return this.Host_URL() + "/api/posts" };
 
     static initHttpState() {
         this.currentHttpError = "";
@@ -20,7 +20,7 @@ class Posts_API {
         Posts_API.initHttpState();
         return new Promise(resolve => {
             $.ajax({
-                url: this.POST_API_URL(),
+                url: this.POSTS_API_URL(),
                 type: 'HEAD',
                 contentType: 'text/plain',
                 complete: data => { resolve(data.getResponseHeader('ETag')); },
@@ -32,7 +32,7 @@ class Posts_API {
         Posts_API.initHttpState();
         return new Promise(resolve => {
             $.ajax({
-                url: this.POST_API_URL() + (id != null ? "/" + id : ""),
+                url: this.POSTS_API_URL() + (id != null ? "/" + id : ""),
                 complete: data => { resolve({ ETag: data.getResponseHeader('ETag'), data: data.responseJSON }); },
                 error: (xhr) => { Posts_API.setHttpErrorState(xhr); resolve(null); }
             });
@@ -42,7 +42,7 @@ class Posts_API {
         Posts_API.initHttpState();
         return new Promise(resolve => {
             $.ajax({
-                url: this.POST_API_URL() + queryString,
+                url: this.POSTS_API_URL() + queryString,
                 complete: data => {
                     resolve({ ETag: data.getResponseHeader('ETag'), data: data.responseJSON });
                 },
@@ -56,7 +56,7 @@ class Posts_API {
         Posts_API.initHttpState();
         return new Promise(resolve => {
             $.ajax({
-                url: create ? this.POST_API_URL() : this.POST_API_URL() + "/" + data.Id,
+                url: create ? this.POSTS_API_URL() : this.POSTS_API_URL() + "/" + data.Id,
                 type: create ? "POST" : "PUT",
                 contentType: 'application/json',
                 data: JSON.stringify(data),
@@ -68,7 +68,7 @@ class Posts_API {
     static async Delete(id) {
         return new Promise(resolve => {
             $.ajax({
-                url: this.POST_API_URL() + "/" + id,
+                url: this.POSTS_API_URL() + "/" + id,
                 type: "DELETE",
                 success: () => {
                     Posts_API.initHttpState();
