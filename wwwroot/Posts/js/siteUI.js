@@ -204,7 +204,7 @@ async function renderPosts(queryString) {
             queryString += "&keywords=" + $("#searchKeys").val().replace(/[ ]/g, ',')
     }
     addWaitingGif();
-    let response = await Posts_API.Get(queryString);
+    let response = await Posts_API.GetQuery(queryString);
     if (!Posts_API.error) {
         currentETag = response.ETag;
         currentPostsCount = parseInt(currentETag.split("-")[0]);
