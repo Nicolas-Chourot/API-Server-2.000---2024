@@ -136,36 +136,43 @@ export default class AccountsController extends Controller {
             this.HttpContext.response.notImplemented();
     }
     promote(user) {
-        if (this.repository != null) {
-            let foundUser = this.repository.findByField("Id", user.Id);
-            foundUser.Authorizations.readAccess++;
-            if (foundUser.Authorizations.readAccess > 3) foundUser.Authorizations.readAccess = 1;
-            foundUser.Authorizations.writeAccess++;
-            if (foundUser.Authorizations.writeAccess > 3) foundUser.Authorizations.writeAccess = 1;
-            this.repository.update(user.Id, foundUser, false);
-            if (this.repository.model.state.isValid) {
-                let userFound = this.repository.get(foundUser.Id); // get data binded record
-                this.HttpContext.response.JSON(userFound);
-            }
-            else
-                this.HttpContext.response.badRequest(this.repository.model.state.errors);
+        if (AccessControl.writeGranted(this.HttpContext.authorizations, AccessControl.admin())) {
+            if (this.repository != null) {
+                let foundUser = this.repository.findByField("Id", user.Id);
+                foundUser.Authorizations.readAccess++;
+                if (foundUser.Authorizations.readAccess > 3) foundUser.Authorizations.readAccess = 1;
+                foundUser.Authorizations.writeAccess++;
+                if (foundUser.Authorizations.writeAccess > 3) foundUser.Authorizations.writeAccess = 1;
+                this.repository.update(user.Id, foundUser, false);
+                if (this.repository.model.state.isValid) {
+                    let userFound = this.repository.get(foundUser.Id); // get data binded record
+                    this.HttpContext.response.JSON(userFound);
+                }
+                else
+                    this.HttpContext.response.badRequest(this.repository.model.state.errors);
+            } else
+                this.HttpContext.response.notImplemented();
         } else
-            this.HttpContext.response.notImplemented();
+            this.HttpContext.response.unAuthorized("Unauthorized access");
+
     }
     block(user) {
-        if (this.repository != null) {
-            let foundUser = this.repository.findByField("Id", user.Id);
-            foundUser.Authorizations.readAccess = foundUser.Authorizations.readAccess == 1 ? -1 : 1;
-            foundUser.Authorizations.writeAccess = foundUser.Authorizations.writeAccess == 1 ? -1 : 1;
-            this.repository.update(user.Id, foundUser, false);
-            if (this.repository.model.state.isValid) {
-                userFound = this.repository.get(userFound.Id); // get data binded record
-                this.HttpContext.response.JSON(userFound);
-            }
-            else
-                this.HttpContext.response.badRequest(this.repository.model.state.errors);
+        if (AccessControl.writeGranted(this.HttpContext.authorizations, AccessControl.admin())) {
+            if (this.repository != null) {
+                let foundUser = this.repository.findByField("Id", user.Id);
+                foundUser.Authorizations.readAccess = foundUser.Authorizations.readAccess == 1 ? -1 : 1;
+                foundUser.Authorizations.writeAccess = foundUser.Authorizations.writeAccess == 1 ? -1 : 1;
+                this.repository.update(user.Id, foundUser, false);
+                if (this.repository.model.state.isValid) {
+                    userFound = this.repository.get(userFound.Id); // get data binded record
+                    this.HttpContext.response.JSON(userFound);
+                }
+                else
+                    this.HttpContext.response.badRequest(this.repository.model.state.errors);
+            } else
+                this.HttpContext.response.notImplemented();
         } else
-            this.HttpContext.response.notImplemented();
+            this.HttpContext.response.unAuthorized("Unauthorized access");
     }
     // PUT:account/modify body payload[{"Id": 0, "Name": "...", "Email": "...", "Password": "..."}]
     modify(user) {
