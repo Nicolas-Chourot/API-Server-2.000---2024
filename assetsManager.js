@@ -24,7 +24,11 @@ export function save(base64Data) {
 export function remove(assetToDelete) {
     if (assetToDelete != '') {
         let assetPath = `./${wwwroot}/${assetsRepository}/${assetToDelete}`;
-        fs.unlinkSync(assetPath);
+        try {
+            fs.unlinkSync(assetPath);
+        } catch (error) {
+            console.log("Could not remove old asset...", error);
+        }
     }
 }
 export function addHostReference(asset) {
